@@ -8,7 +8,7 @@
 
 PGraphics buffer1;
 PGraphics buffer2;
-PGraphics buffer3;
+PGraphics buffer3; // heat buffer
 PImage cooling;
 int w = 600;
 int h = 400;
@@ -17,7 +17,7 @@ int name_cnt;
 
 float ystart = 0.0;
 
-ArrayList<Fire_text> txt_arr = new ArrayList<Fire_text>();
+ArrayList<Fire_text> txt_arr = new ArrayList<Fire_text>(); // array of text to flew out
 
 class Fire_text {
   int yPos = 0;
@@ -52,6 +52,7 @@ void setup() {
   name_cnt = 0;
 }
 
+// main function of coloring the fire depens on heat amount, it contains some gradients
 color fire_gradient(float bright){
   if (bright>=0 && bright<25){
     return color(floor(map(bright, 0, 25, 29, 251)), floor(map(bright, 0, 25, 87, 243)), floor(map(bright, 0, 25, 118, 206)));
@@ -161,6 +162,7 @@ void draw() {
       buffer3.pixels[index5] = fire_gradient(255-newC);
     }
   }
+  // now it has to cold edges of the frame, because convection function do not do anything to the edges, but text do.
   for (int x = 0; x < w; x++){
       buffer1.pixels[x] = color(0);
       buffer2.pixels[x] = color(0);
